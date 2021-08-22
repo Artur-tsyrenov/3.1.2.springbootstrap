@@ -28,23 +28,11 @@ public class AdminController {
         return "admin/all";
     }
 
-//    @GetMapping("/{id}")
-//    public String getUser(@PathVariable("id") int id, Model model) {
-//        model.addAttribute("user", userService.findById(id));
-//        return "user/show";
-//    }
-
     @DeleteMapping()
     public String deleteUser(int id) {
         userService.deleteById(id);
         return "redirect:/admin";
     }
-
-//    @GetMapping("/{id}")
-//    public String update(Model model, @PathVariable("id") int id) {
-//        model.addAttribute("editUser", userService.findById(id));
-//        return "admin/all";
-//    }
 
     @PostMapping()
     public String createUser(

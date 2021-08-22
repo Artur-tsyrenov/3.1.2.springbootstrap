@@ -1,35 +1,79 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
-    <title>User</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Создание пользователя</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
 </head>
 <body>
-<h2>Пользователь</h2>
-<hr>
-<div th:object="${user}">
-    <div >
-        <label for="id"><b>ID:</b> </label>
-        <span id="id" style="color:blue" th:text="*{id}"></span>
+<div class="row bg-dark" style="height: 50px;">
+
+    <div class="col text-white ml-3 mt-2" style="font-size: 15pt;"><span class="font-weight-bold" th:text="${email} "></span>
+        <span class="ms-1"> с правами доступа:</span>
+        <span th:each="role : ${rolesOfUser}" th:text="${role.role.toString().substring(5)}+' '"></span>
     </div>
-    <div class="form-group py-2">
-        <label for="firstName"><b>Name:</b> </label>
-        <span id="firstName" style="color:blue" th:text="*{firstName}"></span>
-    </div>
-    <div class="form-group py-2">
-        <label for="Surname"><b>Surname:</b> </label>
-        <span id="Surname" style="color:blue" th:text="*{lastName}"></span>
-    </div>
-    <div class="form-group py-2">
-        <label for="Salary"><b>Salary:</b> </label>
-        <span id="Salary" style="color:blue" th:text="*{salary}"></span>
+    <div class="col text-right mr-3 mt-3"><a class="text-white-50" th:href="@{/logout}">Logout</a>
     </div>
 </div>
-<br>
-<br>
-<form th:method="GET" th:action="@{/logout}">
-    <input type="submit" value="Logout"/>
-</form>
-
+<div class="row">
+    <div class="col-2 bg-white mt-3">
+        <ul class="nav nav-pills flex-column">
+            <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+                <a class="nav-link" href="/admin">Администратор</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/user">Пользователь</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col bg-light mt-3">
+        <h2>Информация о пользователе</h2>
+        <div class="card">
+            <div class="card-header">
+                <h5>О пользователе</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Age</th>
+                        <th>Salary</th>
+                        <th>Email</th>
+                        <th>Roles</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td th:utext="${user.getId()}">ID</td>
+                        <td th:utext="${user.getFirstName()}">FirstName</td>
+                        <td th:utext="${user.getLastName()}">LastName</td>
+                        <td th:utext="${user.getAge()}">Age</td>
+                        <td th:utext="${user.getSalary()}">Salary</td>
+                        <td th:utext="${user.getEmail()}">Email</td>
+                        <td><span th:each="myRole : ${user.getRoles()}"
+                                  th:text="${myRole.role.toString().substring(5)}+' '">Role</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 </html>

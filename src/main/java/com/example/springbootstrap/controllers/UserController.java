@@ -25,6 +25,8 @@ public class UserController {
     public String pageForUser(Principal principal, Model model) {
         User user = userService.getUserByUsername(principal.getName());
         model.addAttribute("user", user);
+        model.addAttribute("email", user.getEmail());
+        model.addAttribute("rolesOfUser", user.getAuthorities());
         return "user/show";
     }
 }

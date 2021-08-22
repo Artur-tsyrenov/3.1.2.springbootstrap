@@ -7,16 +7,10 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
-    <style>
-        span {
-            font-size: 15pt;
-        }
-    </style>
 </head>
 <body>
 <div class="row bg-dark" style="height: 50px;">
-
-    <div class="col text-white ml-3 mt-2"><span class="font-weight-bold" th:text="${email} "></span>
+    <div class="col text-white ml-3 mt-2" style="font-size: 15pt;"><span class="font-weight-bold" th:text="${email} "></span>
         <span class="ms-1"> с правами доступа:</span>
         <span th:each="role : ${rolesOfUser}" th:text="${role.role.toString().substring(5)}+' '"></span>
     </div>
@@ -54,15 +48,15 @@
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Surname</th>
-                        <th>Age</th>
-                        <th>Salary</th>
-                        <th>Email</th>
-                        <th>Roles</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
+                        <th class="text-center">ID</th>
+                        <th class="text-center">Имя</th>
+                        <th class="text-center">Фамилия</th>
+                        <th class="text-center">Возраст</th>
+                        <th class="text-center">Зарплата</th>
+                        <th class="text-center">Почта</th>
+                        <th class="text-center">Права</th>
+                        <th class="text-center">Редактировать</th>
+                        <th class="text-center">Удалить</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -73,11 +67,11 @@
                         <td th:utext="${myUser.getAge()}">Age</td>
                         <td th:utext="${myUser.getSalary()}">Salary</td>
                         <td th:utext="${myUser.getEmail()}">Email</td>
-                        <td><p th:each="myRole : ${myUser.getRoles()}"
-                               th:text="${myRole.role.toString().substring(5)}"></p></td>
+                        <td><span th:each="myRole : ${myUser.getRoles()}"
+                               th:text="${myRole.role.toString().substring(5)}+' '"></span></td>
                         <td>
                             <button type="button" class="btn btn-info text-light" data-toggle="modal"
-                                    th:attr="data-target='#editModal' + ${myUser.getId()}">Edit
+                                    th:attr="data-target='#editModal' + ${myUser.getId()}">Редактировать
                             </button>
                             <form th:action="@{/admin}" th:method="POST">
                                 <div class="modal fade" th:attr="id='editModal' + ${myUser.getId()}"
@@ -150,9 +144,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
-                                                        data-dismiss="modal">
-                                                    Close
-                                                </button>
+                                                        data-dismiss="modal">Закрыть</button>
                                                 <input type="submit" class="btn btn-primary" value="Сохранить"/>
                                             </div>
                                         </div>
@@ -239,9 +231,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
-                                                        data-dismiss="modal">
-                                                    Close
-                                                </button>
+                                                        data-dismiss="modal">Закрыть</button>
                                                 <input type="submit" class="btn btn-danger" value="Удалить"
                                                        readonly>
                                             </div>
