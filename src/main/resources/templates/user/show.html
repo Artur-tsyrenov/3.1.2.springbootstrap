@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+</head>
+<body>
+<h2>Пользователь</h2>
+<hr>
+<div th:object="${user}">
+    <div >
+        <label for="id"><b>ID:</b> </label>
+        <span id="id" style="color:blue" th:text="*{id}"></span>
+    </div>
+    <div class="form-group py-2">
+        <label for="firstName"><b>Name:</b> </label>
+        <span id="firstName" style="color:blue" th:text="*{firstName}"></span>
+    </div>
+    <div class="form-group py-2">
+        <label for="Surname"><b>Surname:</b> </label>
+        <span id="Surname" style="color:blue" th:text="*{lastName}"></span>
+    </div>
+    <div class="form-group py-2">
+        <label for="Salary"><b>Salary:</b> </label>
+        <span id="Salary" style="color:blue" th:text="*{salary}"></span>
+    </div>
+</div>
+<br>
+<br>
+<form th:method="GET" th:action="@{/logout}">
+    <input type="submit" value="Logout"/>
+</form>
+
+</body>
+</html>
