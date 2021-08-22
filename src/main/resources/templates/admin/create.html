@@ -7,16 +7,25 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
+    <style>
+        span {
+            font-size: 15pt;
+        }
+    </style>
 </head>
 <body>
-<div class="bg-dark text-white px-3"><span th:text="${email} "></span><span class="ms-1"> с правами доступа:</span>
-    <span th:each="role : ${rolesOfUser}" th:text="${role.role}+' '"></span><a class="position-absolute end-0 me-4"
-                                                                               th:href="@{/logout}">Logout</a>
+<div class="row bg-dark" style="height: 50px;">
+
+    <div class="col text-white ml-3 mt-2"><span class="font-weight-bold" th:text="${email} "></span>
+        <span class="ms-1"> с правами доступа:</span>
+        <span th:each="role : ${rolesOfUser}" th:text="${role.role.toString().substring(5)}+' '"></span>
+    </div>
+    <div class="col text-right mr-3 mt-3"><a class="text-white-50" th:href="@{/logout}">Logout</a>
+    </div>
 </div>
-<div class="container mt-3 bg-light">
     <div class="row">
-        <div class="col-3 bg-white">
-            <ul class="nav nav-pills nav-fill flex-column">
+        <div class="col-2 bg-white mt-3">
+            <ul class="nav nav-pills flex-column">
                 <li class="nav-item">
                     <a class="nav-link active" href="/admin">Администратор</a>
                 </li>
@@ -25,7 +34,7 @@
                 </li>
             </ul>
         </div>
-        <div class="col">
+        <div class="col bg-light mt-3">
             <h2>Панель администратора</h2>
             <nav>
                 <ul class="nav nav-tabs mt-3">
@@ -41,22 +50,61 @@
                 <div class="card-header">
                     <h5>Добавить пользователя</h5>
                 </div>
-                <div class="card-body-col-10">
-
-                    <div class="container">
-                        <div class="row">
-                            <div class="form-group">
-                                <div class="text-center"><label for="id"><b>ID</b></label></div>
-                                <div class="">
-                                    <input type="text" class="form-control" id="id" placeholder="Введите ID"></div>
-                            </div>
+                <form th:action="@{/admin}" th:method="POST" th:object="${user}">
+                    <div class="card-body-col-10">
+                        <div class="form-group mx-auto" style="width: 350px;">
+                            <input type="hidden" class="form-control" th:field="*{id}" id="id" placeholder="Введите ID">
+                        </div>
+                        <div class="form-group mx-auto" style="width: 350px;">
+                            <div class="text-center"><label for="firstName"><b>Имя</b></label></div>
+                            <input type="text" class="form-control" th:field="*{firstName}" id="firstName"
+                                   placeholder="Введите имя">
+                        </div>
+                        <div class="form-group mx-auto" style="width: 350px;">
+                            <div class="text-center"><label for="lastName"><b>Фамилия</b></label></div>
+                            <input type="text" class="form-control" th:field="*{lastName}" id="lastName"
+                                   placeholder="Введите фамилию">
+                        </div>
+                        <div class="form-group mx-auto" style="width: 350px;">
+                            <div class="text-center"><label for="age"><b>Возраст</b></label></div>
+                            <input type="text" class="form-control" th:field="*{age}" id="age"
+                                   placeholder="Введите возраст">
+                        </div>
+                        <div class="form-group mx-auto" style="width: 350px;">
+                            <div class="text-center"><label for="salary"><b>Зарплата</b></label></div>
+                            <input type="text" class="form-control" th:field="*{salary}" id="salary"
+                                   placeholder="Введите зарплату">
+                        </div>
+                        <div class="form-group mx-auto" style="width: 350px;">
+                            <div class="text-center"><label for="email"><b>Почта</b></label></div>
+                            <input type="email" class="form-control" th:field="*{email}" id="email"
+                                   placeholder="Введите почту">
+                        </div>
+                        <div class="form-group mx-auto" style="width: 350px;">
+                            <div class="text-center"><label for="username"><b>Логин</b></label></div>
+                            <input type="text" class="form-control" th:field="*{username}" id="username"
+                                   placeholder="Введите логин">
+                        </div>
+                        <div class="form-group mx-auto text-center" style="width: 350px;">
+                            <label for="password"><b>Пароль</b></label>
+                            <input type="password" class="form-control" th:field="*{password}" id="password"
+                                   placeholder="Введите пароль">
+                        </div>
+                        <div class="form-group mx-auto" style="width: 350px;">
+                            <div class="text-center"><label for="roles"><b>Права</b></label></div>
+                        <select class="custom-select" size="2" name="select_role" id="roles">
+                            <option value="1">ADMIN</option>
+                            <option value="2">USER</option>
+                        </select>
+                        </div>
+                        <div class="form-group mt-3 mx-auto" style="width: 258px;">
+                            <button type="submit" class="btn btn-success mx-auto">Добавить нового пользователя</button>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
-</div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>

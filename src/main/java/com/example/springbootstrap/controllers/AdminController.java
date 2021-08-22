@@ -46,13 +46,13 @@ public class AdminController {
 //        return "admin/all";
 //    }
 
-    @PostMapping
+    @PostMapping()
     public String createUser(
-            @ModelAttribute(value = "roleAdmin") String roleAdmin,
+            @ModelAttribute(value = "select_role") String role,
             @ModelAttribute("user") User user) {
 
         Set<Role> setRole = new HashSet<>();
-        if (roleAdmin.contains("on")) {
+        if (role.contains("1")) {
             setRole.add(userService.findAllRoles().get(1));
             setRole.add(userService.findAllRoles().get(0));
         } else {
@@ -71,6 +71,8 @@ public class AdminController {
         model.addAttribute("roleAdmin", roleAdmin);
         model.addAttribute("email", user.getEmail());
         model.addAttribute("rolesOfUser", user.getRoles());
+        model.addAttribute("roles", userService.findAllRoles());
+
         return "admin/create";
     }
 }
